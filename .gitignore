@@ -1,0 +1,24 @@
+# Native scaffolding gerado por "flutter create" — recriar com o comando do README
+src/android/
+src/ios/
+src/linux/
+src/macos/
+src/windows/
+src/web/
+src/test/
+
+# Artefatos de build e cache do Flutter/Dart
+src/.dart_tool/
+src/.idea/
+src/build/
+src/.flutter-plugins
+src/.flutter-plugins-dependencies
+src/.metadata
+src/*.iml
+
+# Lockfile de dependências (opcional manter, mas evita ruído gerado automaticamente)
+src/pubspec.lock
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db

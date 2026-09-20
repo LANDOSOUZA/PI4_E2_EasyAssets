@@ -1,0 +1,37 @@
+{
+  "_comentario": "Dados SIMULADOS para a PoC da Entrega E2. Os códigos QR (campo codigo_qr) seguem o mesmo padrão do seed real do backend (seed_ativos), mas este arquivo é local ao app e não depende do backend estar no ar.",
+  "ativos": [
+    {
+      "codigo_qr": "EASY-GAB-01",
+      "tipo": "Gabinete",
+      "nome": "Workstation Corporativo",
+      "numero_patrimonio": "1253655",
+      "sala": "B-111",
+      "status": "Disponível"
+    },
+    {
+      "codigo_qr": "EASY-MON-01",
+      "tipo": "Monitor",
+      "nome": "Monitor de Vídeo 24\" Dell",
+      "numero_patrimonio": "1256640",
+      "sala": "B-111",
+      "status": "Disponível"
+    },
+    {
+      "codigo_qr": "EASY-TEC-01",
+      "tipo": "Teclado",
+      "nome": "Teclado USB Padrão",
+      "numero_patrimonio": "S/N (fora do inventário patrimonial)",
+      "sala": "B-111",
+      "status": "Disponível"
+    },
+    {
+      "codigo_qr": "EASY-MESA-01",
+      "tipo": "Mesa",
+      "nome": "Mesa de Informática 1200 Cinza DR-2070",
+      "numero_patrimonio": "1260012",
+      "sala": "B-111",
+      "status": "Em manutenção"
+    }
+  ]
+}
