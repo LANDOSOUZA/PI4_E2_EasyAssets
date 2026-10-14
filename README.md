@@ -107,8 +107,9 @@ Capturas de tela da PoC rodando de ponta a ponta, em execução real (dispositiv
 | `03_sucesso_EASY-TEC-01.png` | Leitura por câmera + RA — Teclado USB Padrão (patrimônio "S/N", fora do inventário) |
 | `04_sucesso_EASY-MESA-01.png` | Leitura por câmera + RA — Mesa de Informática (status "Em manutenção", caso não-padrão) |
 | `05_erro_codigo_nao_encontrado.png` | Consulta manual com código inexistente — mensagem de erro tratada, sem travar o app |
+| `06_erro_qr_invalido.png` | Leitura do marcador `INVALIDO-OUTRO-SISTEMA.png` (QR Code de outro sistema) — app recusa o código antes de consultar, com card vermelho "QR Code inválido" (ameaça #1 de `docs/seguranca.md`) |
 
-O que funciona: leitura de QR Code pela câmera com overlay de RA para os 4 ativos de teste; consulta manual como alternativa; tratamento de erro para código não cadastrado.
+O que funciona: leitura de QR Code pela câmera com overlay de RA para os 4 ativos de teste; consulta manual como alternativa; tratamento de erro para código não cadastrado; recusa de QR Code de outro sistema (validação do prefixo `EASY-`).
 O que não foi testado nesta sprint: leitura em ambientes com pouca luz e em iOS (ver Limitações conhecidas).
 
 ## Limitações conhecidas
