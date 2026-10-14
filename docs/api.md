@@ -22,10 +22,11 @@ continuam as mesmas.
 | Endereço (API real) | `/api/ativos/?codigo_qr={codigo}` |
 | Equivalente nesta PoC | `AtivosRepository.buscarPorCodigo(String codigo)` |
 | Entrada | Código do marcador, ex.: `EASY-GAB-01` |
-| Resposta de sucesso (API real) | `200 OK` + JSON com os dados do ativo |
+| Resposta de sucesso (API real) | `200 OK` + lista JSON com o ativo encontrado (o endpoint é uma listagem filtrada) |
 | Resposta de sucesso (PoC) | Um objeto `Ativo` (ver `src/lib/model/ativo.dart`) |
-| Código inexistente (API real) | `404 Not Found` + mensagem explicativa |
+| Código inexistente (API real) | `200 OK` + lista vazia `[]` (filtro sem resultado; o app trata como "não encontrado") |
 | Código inexistente (PoC) | A função retorna `null`, e a tela exibe "Código não encontrado" |
+| Código fora do padrão (API real e PoC) | O app rejeita antes de consultar: códigos válidos começam com `EASY-` (ver `docs/seguranca.md`, ameaça #1) |
 | Autenticação (API real) | `Authorization: Bearer <token>` (JWT) — **não exigida nesta PoC** |
 
 ### Exemplo de requisição (API real, referência para a Sprint 3)
@@ -38,24 +39,33 @@ Authorization: Bearer <token JWT>
 ### Exemplo de resposta de sucesso (API real)
 
 ```json
-{
-  "codigo_qr": "EASY-GAB-01",
-  "tipo": "Gabinete",
-  "nome": "Workstation Corporativo",
-  "numero_patrimonio": "1253655",
-  "sala": "B-111",
-  "status": "Disponível"
-}
+[
+  {
+    "codigo_qr": "EASY-GAB-01",
+    "tipo": "Gabinete",
+    "nome": "Workstation Corporativo",
+    "numero_patrimonio": "1253655",
+    "sala": "B-111",
+    "status": "Disponível"
+  }
+]
 ```
 
-### Exemplo de resposta de erro (API real)
+### Exemplo de resposta para código inexistente (API real)
+
+```json
+[]
+```
+(HTTP 200 OK — lista vazia; o app mostra "Código não encontrado")
+
+### Exemplo de resposta sem autenticação (API real)
 
 ```json
 {
-  "detail": "Nenhum ativo encontrado com o código informado."
+  "detail": "As credenciais de autenticação não foram fornecidas."
 }
 ```
-(HTTP 404 Not Found)
+(HTTP 401 Unauthorized)
 
 ### Exemplo equivalente na PoC (dados simulados)
 
