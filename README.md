@@ -8,6 +8,7 @@ Miguel Freitas Santos (frontend web), Guilherme Bibiano Taglioni de Oliveira
 **Turma:** CTADS125N4
 **Etapa:** Entrega E2 — Projeto técnico (marco: PoC executável de leitura + RA)
 **Prazo:** 24/09/2026
+**Versão revisada:** tag `entrega-e2-v2` (ajustes após a tentativa de execução em aula de 08/10/2026; a versão original segue na tag `entrega-e2`)
 
 ## Objetivo desta PoC
 
@@ -40,33 +41,32 @@ contrato de entrada/saída é o mesmo já usado pelo backend real do projeto
 
 ## Instalação passo a passo
 
-Este repositório traz apenas os arquivos Dart do app (`src/lib/`), o
-`pubspec.yaml` e os assets — sem os projetos nativos `android/`/`ios/`
-gerados pela ferramenta `flutter create`, para manter o repositório
-enxuto (conforme a sprint não exige empacotamento/publicação).
+O repositório traz o código Dart do app (`src/lib/`), o `pubspec.yaml`, os
+assets e um manifesto Android pronto (`src/android_config/`). A base nativa
+`android/` é criada automaticamente pelo script de preparação — **nenhum
+arquivo precisa ser editado à mão**.
 
 ```bash
-# 1. Criar a base nativa do projeto Flutter (gera android/, ios/, etc.)
+# 1. Baixar o repositório
+git clone https://github.com/LANDOSOUZA/PI4_E2_EasyAssets.git
+cd PI4_E2_EasyAssets
+
+# 2. Preparar o projeto (um comando só)
+#    Windows:
+setup.bat
+#    Linux/macOS:
+bash setup.sh
+
+# 3. Conectar o celular Android (ou abrir um emulador) e executar
 cd src
-flutter create --project-name easy_assets_poc --org br.senai.easyassets .
-
-# 2. Sobrescrever com os arquivos deste repositório (pubspec.yaml e lib/
-#    já vieram junto no passo anterior de clone do repositório — apenas
-#    confirme que não foram sobrescritos pelo "flutter create"; se
-#    tiverem sido, restaure com "git checkout -- pubspec.yaml lib/")
-git checkout -- pubspec.yaml lib/
-
-# 3. Adicionar a permissão de câmera no Android
-#    Edite android/app/src/main/AndroidManifest.xml e adicione,
-#    como filho direto de <manifest>, ANTES de <application>:
-#    <uses-permission android:name="android.permission.CAMERA" />
-
-# 4. Instalar as dependências
-flutter pub get
-
-# 5. Conectar o celular Android (ou iniciar um emulador) e executar
 flutter run
 ```
+
+O script de preparação faz, em ordem: `flutter create` (gera `android/`),
+restaura `pubspec.yaml` e `lib/` caso tenham sido alterados, copia o
+`AndroidManifest.xml` com a permissão de câmera e roda `flutter pub get`.
+Pode ser executado de novo sem problema (se `android/` já existir, ele pula
+essa etapa).
 
 ## Como executar e reproduzir o teste
 
@@ -80,7 +80,7 @@ flutter run
    - Dica: abra o PNG em outro celular/monitor e aponte a câmera para a tela, ou imprima o marcador.
 4. **Resultado esperado:** em até 2 segundos, um card verde aparece **sobre a imagem da câmera** (que continua visível ao fundo), mostrando nome, tipo, número de patrimônio, sala e status do ativo — mais de três informações, portanto.
 5. Toque em "Nova consulta" para escanear outro marcador, ou em "Digitar código manualmente" para testar a alternativa sem câmera (digite, por exemplo, `EASY-GAB-01`).
-6. Para testar o caso de erro, aponte para qualquer outro QR Code (ex.: gerado em [qr-code-generator.com](https://www.qr-code-generator.com/) com um texto qualquer) — deve aparecer o card vermelho "Código não encontrado".
+6. Para testar os casos de erro: aponte para qualquer QR Code de outro sistema (ex.: gerado em [qr-code-generator.com](https://www.qr-code-generator.com/) com um texto qualquer) — deve aparecer o card vermelho "QR Code inválido: não pertence ao Easy_Assets"; na consulta manual, digite `EASY-XYZ-99` (formato válido, mas inexistente) — deve aparecer "Código não encontrado".
 
 ## Indicação do que usa dados simulados
 
@@ -131,8 +131,10 @@ O que não foi testado nesta sprint: leitura em ambientes com pouca luz e em iOS
 ```text
 PI4_E2_EasyAssets/
 ├── README.md
+├── setup.bat / setup.sh # Preparação automática (flutter create + manifesto + dependências)
 ├── src/                     # Código-fonte do app Flutter
 │   ├── pubspec.yaml
+│   ├── android_config/AndroidManifest.xml  # Manifesto com permissão de câmera
 │   ├── lib/
 │   │   ├── main.dart
 │   │   ├── model/ativo.dart
