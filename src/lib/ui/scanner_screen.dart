@@ -41,6 +41,16 @@ class _ScannerScreenState extends State<ScannerScreen> {
     final valor = codigos.first.rawValue;
     if (valor == null || valor.isEmpty) return;
 
+    // Ameaça #1 (docs/seguranca.md): QR Code fora do padrão do sistema.
+    if (!AtivosRepository.formatoValido(valor)) {
+      setState(() {
+        _ativoEncontrado = null;
+        _mensagemErro =
+            'QR Code inválido: não pertence ao Easy_Assets (esperado "EASY-...").';
+      });
+      return;
+    }
+
     setState(() => _processando = true);
 
     final ativo = await _repositorio.buscarPorCodigo(valor);

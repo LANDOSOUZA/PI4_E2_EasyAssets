@@ -26,6 +26,13 @@ class _ManualQueryScreenState extends State<ManualQueryScreen> {
       return;
     }
 
+    // Ameaça #1 (docs/seguranca.md): código fora do padrão do sistema.
+    if (!AtivosRepository.formatoValido(codigo)) {
+      setState(() => _erro =
+          'Código inválido: os códigos do Easy_Assets começam com "EASY-".');
+      return;
+    }
+
     setState(() {
       _buscando = true;
       _erro = null;

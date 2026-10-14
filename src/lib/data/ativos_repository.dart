@@ -24,10 +24,20 @@ class AtivosRepository {
     return lista;
   }
 
+  /// Prefixo usado por todos os QR Codes do Easy_Assets (ex.: EASY-GAB-01).
+  static const String prefixoCodigo = 'EASY-';
+
+  /// Controle da ameaça #1 de docs/seguranca.md: rejeita, antes de
+  /// consultar os dados, qualquer código que não siga o padrão do sistema
+  /// (QR Code adulterado ou de outro sistema).
+  static bool formatoValido(String codigo) =>
+      codigo.trim().toUpperCase().startsWith(prefixoCodigo);
+
   /// Equivalente a GET /api/ativos/?codigo_qr={codigo}
-  /// Retorna null quando o código não é encontrado (equivalente ao
-  /// 404 Not Found descrito em docs/api.md).
+  /// Retorna null quando o código não é encontrado (equivalente à lista
+  /// vazia devolvida pela API real, descrita em docs/api.md).
   Future<Ativo?> buscarPorCodigo(String codigo) async {
+    if (!formatoValido(codigo)) return null;
     final todos = await _carregarTodos();
     final codigoNormalizado = codigo.trim().toUpperCase();
     for (final ativo in todos) {
