@@ -77,10 +77,11 @@ essa etapa).
    - `EASY-MON-01.png` (Monitor de Vídeo 24" Dell)
    - `EASY-TEC-01.png` (Teclado USB Padrão)
    - `EASY-MESA-01.png` (Mesa de Informática 1200 Cinza)
+   - `INVALIDO-OUTRO-SISTEMA.png` (QR Code de outro sistema, conteúdo `OUTRO-SISTEMA-123` — usado só para testar o erro)
    - Dica: abra o PNG em outro celular/monitor e aponte a câmera para a tela, ou imprima o marcador.
 4. **Resultado esperado:** em até 2 segundos, um card verde aparece **sobre a imagem da câmera** (que continua visível ao fundo), mostrando nome, tipo, número de patrimônio, sala e status do ativo — mais de três informações, portanto.
 5. Toque em "Nova consulta" para escanear outro marcador, ou em "Digitar código manualmente" para testar a alternativa sem câmera (digite, por exemplo, `EASY-GAB-01`).
-6. Para testar os casos de erro: aponte para qualquer QR Code de outro sistema (ex.: gerado em [qr-code-generator.com](https://www.qr-code-generator.com/) com um texto qualquer) — deve aparecer o card vermelho "QR Code inválido: não pertence ao Easy_Assets"; na consulta manual, digite `EASY-XYZ-99` (formato válido, mas inexistente) — deve aparecer "Código não encontrado".
+6. Para testar os casos de erro: aponte para o marcador `INVALIDO-OUTRO-SISTEMA.png` (ou qualquer QR Code de outro sistema) — deve aparecer o card vermelho "QR Code inválido: não pertence ao Easy_Assets"; na consulta manual, digite `EASY-XYZ-99` (formato válido, mas inexistente) — deve aparecer "Código não encontrado".
 
 ## Indicação do que usa dados simulados
 
@@ -149,7 +150,8 @@ PI4_E2_EasyAssets/
 │   ├── EASY-GAB-01.png
 │   ├── EASY-MON-01.png
 │   ├── EASY-TEC-01.png
-│   └── EASY-MESA-01.png
+│   ├── EASY-MESA-01.png
+│   └── INVALIDO-OUTRO-SISTEMA.png  # QR Code inválido, para o teste de erro
 ├── docs/
 │   ├── arquitetura.png / arquitetura.md
 │   ├── modelo-dados.png
